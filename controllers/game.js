@@ -40,7 +40,7 @@ module.exports = {
                             objectResponse.right += 1
                         }else objectResponse.left += 1
                     }
-                    console.log("isBehind: false")
+                    console.log("isBehind: true")
                 }
             });
             return objectResponse
