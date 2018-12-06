@@ -1,5 +1,5 @@
 module.exports = app => {
-    app.listen(9200,  () => {
+    app.listen(80,  () => {
         console.log('server running');
     });
 }
