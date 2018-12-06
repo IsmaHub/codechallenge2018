@@ -36,7 +36,7 @@ module.exports = {
                     }else objectResponse.right += 1
                 }
             });
-            console.log("FIRE TARGET: "+objectResponse)
+            console.log(objectResponse)
             return objectResponse
         }
 
