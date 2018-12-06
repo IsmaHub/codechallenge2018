@@ -20,7 +20,7 @@ module.exports = {
         return res.send({email: "ismael.jimenez@ext.privalia.com", name: "ENP"}).end();
     },
 
-    _getFireTargets(targets, pos){
+    _getFireTargets: (targets, pos) => {
         let objectResponse = {}
         targets.forEach(target => {
             if(target.x === pos.x){
@@ -36,7 +36,7 @@ module.exports = {
         return objectResponse
     },
 
-    _getFireDirection(targets){
+    _getFireDirection: (targets) => {
         let directionString = "";
         let lastDirection = 0;
         for(var direction in targets) {
