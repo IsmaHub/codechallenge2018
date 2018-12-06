@@ -59,7 +59,7 @@ module.exports = {
             return dirToFire
         }
 
-        if(fire){
+        if(data.player.fire){
             let directionString = "";
             let playersFireTarget = _getFireTargets(data.players, data.player.position)
             let invadersFireTarget = _getFireTargets(data.invaders, data.player.position)
