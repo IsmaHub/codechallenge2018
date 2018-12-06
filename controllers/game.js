@@ -24,7 +24,7 @@ module.exports = {
          * 
          */
         _getFireTargets = (targets, pos) => {
-            let objectResponse = {}
+            let objectResponse = {down: 0, up: 0, left: 0, right: 0}
             targets.forEach(target => {
                 if(target.x === pos.x){
                     if(target.y > pos.y){
