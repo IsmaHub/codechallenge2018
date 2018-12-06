@@ -38,15 +38,17 @@ module.exports = {
             return objectResponse
         }
 
-        
+
         let playersFireTarget = _getFireTargets(data.players, data.player.position);
         let directionString = "";
         directionString = _getFireDirection(playersFireTarget)
+        console.log("direction fire: "+directionString)
         if(directionString.length){
             return res.send({move: "fire-"+directionString}).end();
         }
         let invadersFireTarget = _getFireTargets(data.invaders, data.player.position);
         directionString = _getFireDirection(invadersFireTarget)
+        console.log("direction fire: "+directionString)
         if(directionString.length){
             return res.send({move: "fire-"+directionString}).end();
         }
