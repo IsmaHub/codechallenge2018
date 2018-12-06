@@ -32,8 +32,8 @@ module.exports = {
                     }else objectResponse.up += 1
                 }else if(target.y === pos.y){
                     if(target.x > pos.x){
-                        objectResponse.left += 1
-                    }else objectResponse.right += 1
+                        objectResponse.right += 1
+                    }else objectResponse.left += 1
                 }
             });
             console.log(objectResponse)
