@@ -47,6 +47,7 @@ module.exports = {
             let directions = ['left', 'right', 'top', 'bottom']
             directions.forEach(direction => {
                 let dirScore = (players[direction]*100) + (invaders[direction]*50)
+                console.log("Score: "+dirScore)
                 if(dirScore > score){
                     dirToFire = direction
                     score = dirScore
