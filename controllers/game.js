@@ -44,7 +44,7 @@ module.exports = {
         _getBestFireScore = (players, invaders) =>{
             let dirToFire = ''
             let score = 0
-            let directions = ['left', 'right', 'top', 'bottom']
+            let directions = ['left', 'right', 'up', 'down']
             directions.forEach(direction => {
                 let dirScore = (players[direction]*100) + (invaders[direction]*50)
                 console.log("Score: "+dirScore)
@@ -57,9 +57,9 @@ module.exports = {
         }
 
         let directionString = "";
-        let playersFireTarget = _getFireTargets(data.players, data.player.position);
-        let invadersFireTarget = _getFireTargets(data.invaders, data.player.position);
-        directionString = _getBestFireScore(data.players, data.invaders)
+        let playersFireTarget = _getFireTargets(data.players, data.player.position)
+        let invadersFireTarget = _getFireTargets(data.invaders, data.player.position)
+        directionString = _getBestFireScore(playersFireTarget, invadersFireTarget)
         console.log("Direction fire: "+directionString)
         if(directionString.length){
             return res.send({move: "fire-"+directionString}).end();
