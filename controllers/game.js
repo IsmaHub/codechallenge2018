@@ -16,7 +16,6 @@ module.exports = {
                     }
                 }
             }
-            console.log("DIRECTION TARGET: "+directionString)
             return directionString
         }
         
@@ -36,25 +35,34 @@ module.exports = {
                     }else objectResponse.left += 1
                 }
             });
-            console.log(objectResponse)
             return objectResponse
         }
 
+        /**
+         * 
+         */
+        _getBestFireScore = (players, invaders) =>{
+            let dirToFire = ''
+            let score = 0
+            let directions = ['left', 'right', 'top', 'bottom']
+            directions.forEach(direction => {
+                let dirScore = (players[direction]*100) + (invaders[direction]*50)
+                if(dirScore > score){
+                    dirToFire = direction
+                    score = dirScore
+                }
+            });
+            return dirToFire
+        }
 
-        let playersFireTarget = _getFireTargets(data.players, data.player.position);
         let directionString = "";
-        directionString = _getFireDirection(playersFireTarget)
-        console.log("direction fire: "+directionString)
-        if(directionString.length){
-            return res.send({move: "fire-"+directionString}).end();
-        }
+        let playersFireTarget = _getFireTargets(data.players, data.player.position);
         let invadersFireTarget = _getFireTargets(data.invaders, data.player.position);
-        directionString = _getFireDirection(invadersFireTarget)
-        console.log("direction fire: "+directionString)
+        directionString = _getBestFireScore(data.players, data.invaders)
+        console.log("Direction fire: "+directionString)
         if(directionString.length){
             return res.send({move: "fire-"+directionString}).end();
         }
-        
         return res.send({move: "up"}).end();
     },
 
