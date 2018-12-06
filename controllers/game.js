@@ -70,6 +70,7 @@ module.exports = {
         }else{
             return res.send({move: "up"}).end();
         }
+        return res.send({move: "up"}).end();
     },
 
     name: (req, res) => {
