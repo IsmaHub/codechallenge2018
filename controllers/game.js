@@ -1,38 +1,42 @@
 module.exports = {
     move: (req, res) => {
         const data = req.body
-
+        
         /**
          * 
          */
-        _getFireDirection = (targets) => {
-            let directionString = "";
-            let lastDirection = 0;
-            for(var direction in targets) {
-                if(targets.hasOwnProperty(direction)) {
-                    if(targets[direction] > lastDirection){
-                        directionString = direction
-                        lastDirection = targets[direction]
-                    }
-                }
-            }
-            return directionString
+        _isBehindWall = (target) =>{
+            return data.board.walls.some(wall=>{
+                return  (
+                            wall.x > target.x && wall.x < data.player.position.x ||
+                            wall.x < target.x && wall.x > data.player.position.x
+                        ) || 
+                        (
+                            wall.y > target.y && wall.y < data.player.position.y ||
+                            wall.y < target.y && wall.y > data.player.position.y
+                        )  
+            })
         }
-        
+
+
         /**
          * 
          */
         _getFireTargets = (targets, pos) => {
             let objectResponse = {down: 0, up: 0, left: 0, right: 0}
             targets.forEach(target => {
-                if(target.x === pos.x){
-                    if(target.y > pos.y){
-                        objectResponse.down += 1
-                    }else objectResponse.up += 1
+                if(target.x === pos.x){    
+                    if(!_isBehindWall(target)){
+                        if(target.y > pos.y){
+                            objectResponse.down += 1
+                        }else objectResponse.up += 1
+                    }
                 }else if(target.y === pos.y){
-                    if(target.x > pos.x){
-                        objectResponse.right += 1
-                    }else objectResponse.left += 1
+                    if(!_isBehindWall(target)){
+                        if(target.x > pos.x){
+                            objectResponse.right += 1
+                        }else objectResponse.left += 1
+                    }
                 }
             });
             return objectResponse
@@ -47,7 +51,6 @@ module.exports = {
             let directions = ['left', 'right', 'up', 'down']
             directions.forEach(direction => {
                 let dirScore = (players[direction]*100) + (invaders[direction]*50)
-                console.log("Score: "+dirScore)
                 if(dirScore > score){
                     dirToFire = direction
                     score = dirScore
@@ -56,15 +59,17 @@ module.exports = {
             return dirToFire
         }
 
-        let directionString = "";
-        let playersFireTarget = _getFireTargets(data.players, data.player.position)
-        let invadersFireTarget = _getFireTargets(data.invaders, data.player.position)
-        directionString = _getBestFireScore(playersFireTarget, invadersFireTarget)
-        console.log("Direction fire: "+directionString)
-        if(directionString.length){
-            return res.send({move: "fire-"+directionString}).end();
+        if(fire){
+            let directionString = "";
+            let playersFireTarget = _getFireTargets(data.players, data.player.position)
+            let invadersFireTarget = _getFireTargets(data.invaders, data.player.position)
+            directionString = _getBestFireScore(playersFireTarget, invadersFireTarget)
+            if(directionString.length){
+                return res.send({move: "fire-"+directionString}).end();
+            }
+        }else{
+            return res.send({move: "up"}).end();
         }
-        return res.send({move: "up"}).end();
     },
 
     name: (req, res) => {
