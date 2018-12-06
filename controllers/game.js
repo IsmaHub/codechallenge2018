@@ -16,6 +16,7 @@ module.exports = {
                     }
                 }
             }
+            console.log("DIRECTION TARGET: "+directionString)
             return directionString
         }
         
@@ -35,6 +36,7 @@ module.exports = {
                     }else objectResponse.right += 1
                 }
             });
+            console.log("FIRE TARGET: "+objectResponse)
             return objectResponse
         }
 
