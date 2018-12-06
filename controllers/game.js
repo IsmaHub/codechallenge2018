@@ -2,18 +2,6 @@ module.exports = {
     move: (req, res) => {
         const data = req.body
 
-        let playersFireTarget = _getFireTargets(data.players, data.player.position);
-        let directionString = "";
-        directionString = _getFireDirection(playersFireTarget)
-        if(directionString.length){
-            return res.send({move: "fire-"+directionString}).end();
-        }
-        let invadersFireTarget = _getFireTargets(data.invaders, data.player.position);
-        directionString = _getFireDirection(invadersFireTarget)
-        if(directionString.length){
-            return res.send({move: "fire-"+directionString}).end();
-        }
-
         /**
          * 
          */
@@ -48,6 +36,19 @@ module.exports = {
                 }
             });
             return objectResponse
+        }
+
+        
+        let playersFireTarget = _getFireTargets(data.players, data.player.position);
+        let directionString = "";
+        directionString = _getFireDirection(playersFireTarget)
+        if(directionString.length){
+            return res.send({move: "fire-"+directionString}).end();
+        }
+        let invadersFireTarget = _getFireTargets(data.invaders, data.player.position);
+        directionString = _getFireDirection(invadersFireTarget)
+        if(directionString.length){
+            return res.send({move: "fire-"+directionString}).end();
         }
         
         return res.send({move: "up"}).end();
