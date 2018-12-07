@@ -66,21 +66,13 @@ module.exports = {
             let objectResponse = {down: 0, up: 0, left: 0, right: 0}
             targets.forEach(target => {
                 if(target.x === pos.x){    
-                    if(!_isBehindWall(target, "y")){
-                        console.log("isBehind: false")
-                        if(target.y > pos.y){
-                            objectResponse.down += 1
-                        }else objectResponse.up += 1
-                    }else
-                        console.log("isBehind: true")
+                    if(target.y > pos.y){
+                        objectResponse.down += 1
+                    }else objectResponse.up += 1
                 }else if(target.y === pos.y){
-                    if(!_isBehindWall(target, "x")){
-                        console.log("isBehind: false")
-                        if(target.x > pos.x){
-                            objectResponse.right += 1
-                        }else objectResponse.left += 1
-                    }else
-                        console.log("isBehind: true")
+                    if(target.x > pos.x){
+                        objectResponse.right += 1
+                    }else objectResponse.left += 1
                 }
             });
             return objectResponse
