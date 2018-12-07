@@ -15,6 +15,11 @@ module.exports = {
          * 
          */
         _getNextMove = ()=>{
+
+            if(data.player.position.x == data.player.previous.x && data.player.position.y == data.player.previous.y){
+                return "up"
+            }
+
             //UP
             if(
                 (!_isWall(data.player.position.x, data.player.position.y-1) &&
@@ -37,6 +42,7 @@ module.exports = {
                 ) &&
                 (data.player.position.x+1 !== data.player.previous.x || data.player.position.y !== data.player.previous.y)
             ){
+                console.log("*****************IN RIGHT **************")
                 return "right"
 
             //DOWN
@@ -44,6 +50,7 @@ module.exports = {
                 !_isWall(data.player.position.x, data.player.position.y+1) &&
                 (data.player.position.x !== data.player.previous.x || data.player.position.y+1 !== data.player.previous.y)
             ){
+                console.log("*****************IN DOWN **************")
                 return "down"
 
             //LEFT
@@ -51,6 +58,7 @@ module.exports = {
                 !_isWall(data.player.position.x-1, data.player.position.y) &&
                 (data.player.position.x-1 !== data.player.previous.x || data.player.position.y !== data.player.previous.y)
             ){
+                console.log("*****************IN LEFT **************")
                 return "left"
 
             }else{
