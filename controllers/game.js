@@ -51,10 +51,12 @@ module.exports = {
         /**
          * 
          */
-        _isBehindWall = (target, dir) =>{
+        _isBehindWall = (target, dir1, dir2) =>{
             return data.board.walls.some(wall=>{
-                return  !((wall[dir] < target[dir] && wall[dir] < data.player.position[dir]) &&
-                        (wall[dir] > target[dir] && wall[dir] > data.player.position[dir]))  
+                return  (
+                            (wall[dir1] < target[dir1] && wall[dir1] > data.player.position[dir]) &&
+                            (wall[dir1] > target[dir1] && wall[dir1] < data.player.position[dir1])
+                        ) && wall[dir2] === target[dir2] && wall[dir2] === data.player.position[dir2]
             })
         }
 
@@ -65,7 +67,7 @@ module.exports = {
         _getFireTargets = (targets, pos) => {
             let objectResponse = {down: 0, up: 0, left: 0, right: 0}
             targets.forEach(target => {
-                if(target.x === pos.x && !_isBehindWall(target, "y")){    
+                if(target.x === pos.x && !_isBehindWall(target, "y", "x")){    
                     if(target.y > pos.y){
                         objectResponse.down += 1
                     }else objectResponse.up += 1
