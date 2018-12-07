@@ -19,8 +19,7 @@ module.exports = {
             if(
                 !_isWall(data.player.position.x, data.player.position.y-1) &&
                 (   
-                    (data.player.position.x !== data.player.previous.x || data.player.position.y-1 !== data.player.previous.y) &&
-                    (data.player.position.x !== data.player.previous.x || data.player.position.y+1 !== data.player.previous.y)
+                    (data.player.position.x !== data.player.previous.x || data.player.position.y-1 !== data.player.previous.y)
                 )
             ){
                 return "up"
@@ -54,7 +53,7 @@ module.exports = {
         _isBehindWall = (target, dir1, dir2) =>{
             return data.board.walls.some(wall=>{
                 return  (
-                            (wall[dir1] < target[dir1] && wall[dir1] > data.player.position[dir]) &&
+                            (wall[dir1] < target[dir1] && wall[dir1] > data.player.position[dir1]) &&
                             (wall[dir1] > target[dir1] && wall[dir1] < data.player.position[dir1])
                         ) && wall[dir2] === target[dir2] && wall[dir2] === data.player.position[dir2]
             })
