@@ -25,6 +25,7 @@ module.exports = {
                 )
             ){
                 return "up"
+
             //RIGHT
             }else if(
                 !_isWall(data.player.position.x+1, data.player.position.y) &&
@@ -32,6 +33,7 @@ module.exports = {
                 (data.player.position.x+1 !== data.player.previous.x || data.player.position.y !== data.player.previous.y)
             ){
                 return "right"
+
             //DOWN
             }else if(
                 !_isWall(data.player.position.x, data.player.position.y+1) &&
@@ -39,13 +41,14 @@ module.exports = {
                 (data.player.position.x !== data.player.previous.x || data.player.position.y+1 !== data.player.previous.y)
             ){
                 return "down"
+
             //LEFT
             }else if(
-                _isWall(data.player.position.x, data.player.position.y+1) &&
                 !_isWall(data.player.position.x-1, data.player.position.y) &&
                 (data.player.position.x-1 !== data.player.previous.x || data.player.position.y !== data.player.previous.y)
             ){
                 return "left"
+                
             }else{
                 return "up"
             }
