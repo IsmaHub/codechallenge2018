@@ -71,7 +71,7 @@ module.exports = {
                     if(target.y > pos.y){
                         objectResponse.down += 1
                     }else objectResponse.up += 1
-                }else if(target.y === pos.y && !_isBehindWall(target, "x")){
+                }else if(target.y === pos.y && !_isBehindWall(target, "x", "y")){
                     if(target.x > pos.x){
                         objectResponse.right += 1
                     }else objectResponse.left += 1
