@@ -28,6 +28,7 @@ module.exports = {
             //RIGHT
             }else if(
                 !_isWall(data.player.position.x+1, data.player.position.y) &&
+                (data.player.position.x !== data.player.previous.x || data.player.position.y+1 !== data.player.previous.y) &&
                 (data.player.position.x+1 !== data.player.previous.x || data.player.position.y !== data.player.previous.y)
             ){
                 return "right"
