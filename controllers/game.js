@@ -29,6 +29,7 @@ module.exports = {
                 !_isWall(data.player.position.x+1, data.player.position.y) &&
                 (data.player.position.x+1 !== data.player.previous.x || data.player.position.y !== data.player.previous.y)
             ){
+                console.log("isWall: "+_isWall(data.player.position.x+1, data.player.position.y))
                 return "right"
             //DOWN
             }else if(
@@ -50,16 +51,10 @@ module.exports = {
         /**
          * 
          */
-        _isBehindWall = (target) =>{
+        _isBehindWall = (target, dir) =>{
             return data.board.walls.some(wall=>{
-                return  (
-                            (wall.x > target.x && wall.x < data.player.position.x) ||
-                            (wall.x < target.x && wall.x > data.player.position.x)
-                        ) || 
-                        (
-                            (wall.y > target.y && wall.y < data.player.position.y) ||
-                            (wall.y < target.y && wall.y > data.player.position.y)
-                        )  
+                return  (wall[dir] > target[dir] && wall[dir] < data.player.position[dir]) ||
+                        (wall[dir] < target[dir] && wall[dir] > data.player.position[dir])  
             })
         }
 
@@ -71,7 +66,7 @@ module.exports = {
             let objectResponse = {down: 0, up: 0, left: 0, right: 0}
             targets.forEach(target => {
                 if(target.x === pos.x){    
-                    if(!_isBehindWall(target)){
+                    if(!_isBehindWall(target, "y")){
                         console.log("isBehind: false")
                         if(target.y > pos.y){
                             objectResponse.down += 1
@@ -79,7 +74,7 @@ module.exports = {
                     }else
                         console.log("isBehind: true")
                 }else if(target.y === pos.y){
-                    if(!_isBehindWall(target)){
+                    if(!_isBehindWall(target, "x")){
                         console.log("isBehind: false")
                         if(target.x > pos.x){
                             objectResponse.right += 1
