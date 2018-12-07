@@ -5,6 +5,48 @@ module.exports = {
         /**
          * 
          */
+        _isWall = (x, y) =>{
+            return data.board.walls.some((wall) =>{
+                return x == wall.x && y == wall.y
+            })
+        }
+
+        /**
+         * 
+         */
+        _getNextMove = ()=>{
+            //UP
+            if(
+                !_isWall(data.player.position.x, data.player.position.y-1) &&
+                (data.player.position.x !== data.player.previous.x || data.player.position.y-1 !== data.player.previous.y)
+            ){
+                return "up"
+            //RIGHT
+            }else if(
+                !_isWall(data.player.position.x+1, data.player.position.y) &&
+                (data.player.position.x+1 !== data.player.previous.x || data.player.position.y !== data.player.previous.y)
+            ){
+                return "right"
+            //DOWN
+            }else if(
+                !_isWall(data.player.position.x, data.player.position.y+1) &&
+                (data.player.position.x !== data.player.previous.x || data.player.position.y+1 !== data.player.previous.y)
+            ){
+                return "down"
+            //LEFT
+            }else if(
+                !_isWall(data.player.position.x+1, data.player.position.y) &&
+                (data.player.position.x+1 !== data.player.previous.x || data.player.position.y !== data.player.previous.y)
+            ){
+                return "right"
+            }else{
+                return "up"
+            }
+        }
+
+        /**
+         * 
+         */
         _isBehindWall = (target) =>{
             return data.board.walls.some(wall=>{
                 return  (
@@ -71,10 +113,17 @@ module.exports = {
             if(directionString.length){
                 return res.send({move: "fire-"+directionString}).end();
             }
+            let move = _getNextMove()
+            console.log(move)
+            return res.send({move: move}).end();
         }else{
-            return res.send({move: "up"}).end();
+            let move = _getNextMove()
+            console.log(move)
+            return res.send({move: move}).end();
         }
-        return res.send({move: "up"}).end();
+        let move = _getNextMove()
+        console.log(move)
+        return res.send({move: move}).end();
     },
 
     name: (req, res) => {
