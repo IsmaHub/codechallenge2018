@@ -15,11 +15,6 @@ module.exports = {
          * 
          */
         _getNextMove = ()=>{
-
-            if(data.player.position.x == data.player.previous.x && data.player.position.y == data.player.previous.y){
-                return "up"
-            }
-
             //UP
             if(
                 (!_isWall(data.player.position.x, data.player.position.y-1) &&
@@ -132,9 +127,6 @@ module.exports = {
             console.log(move)
             return res.send({move: move}).end();
         }
-        let move = _getNextMove()
-        console.log(move)
-        return res.send({move: move}).end();
     },
 
     name: (req, res) => {
