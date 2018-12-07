@@ -73,16 +73,16 @@ module.exports = {
                         if(target.y > pos.y){
                             objectResponse.down += 1
                         }else objectResponse.up += 1
-                    }
-                    console.log("isBehind: true")
+                    }else
+                        console.log("isBehind: true")
                 }else if(target.y === pos.y){
                     if(!_isBehindWall(target)){
                         console.log("isBehind: false")
                         if(target.x > pos.x){
                             objectResponse.right += 1
                         }else objectResponse.left += 1
-                    }
-                    console.log("isBehind: true")
+                    }else
+                        console.log("isBehind: true")
                 }
             });
             return objectResponse
@@ -110,7 +110,7 @@ module.exports = {
             let playersFireTarget = _getFireTargets(data.players, data.player.position)
             let invadersFireTarget = _getFireTargets(data.invaders, data.player.position)
             directionString = _getBestFireScore(playersFireTarget, invadersFireTarget)
-            console.log(directionString)
+            console.log("Shot direction: "+directionString)
             if(directionString.length){
                 return res.send({move: "fire-"+directionString}).end();
             }
