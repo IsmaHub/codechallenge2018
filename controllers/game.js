@@ -53,7 +53,7 @@ module.exports = {
          */
         _isBehindWall = (target, dir) =>{
             return data.board.walls.some(wall=>{
-                return  !((wall[dir] < target[dir] && wall[dir] < data.player.position[dir]) ||
+                return  !((wall[dir] < target[dir] && wall[dir] < data.player.position[dir]) &&
                         (wall[dir] > target[dir] && wall[dir] > data.player.position[dir]))  
             })
         }
