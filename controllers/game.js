@@ -2,6 +2,15 @@ module.exports = {
     move: (req, res) => {
         const data = req.body
         
+
+        /**
+         * 
+         */
+        _nextToInvader = (x, y) =>{
+            return data.invaders.some((invader) => {
+                return invader.x == x-1 || invader.x == x+1 || invader.y == y-1 || invader.y == y+1
+            })
+        }
         /**
          * 
          */
@@ -22,7 +31,7 @@ module.exports = {
                 !(
                     !_isWall(data.player.position.x-1, data.player.position.y) &&
                     (data.player.position.x-1 !== data.player.previous.x || data.player.position.y !== data.player.previous.y)
-                )
+                ) && _nextToInvader(data.player.position.x, data.player.position.y-1)
             )
             ){
                 console.log("*****************IN UP **************")
@@ -35,7 +44,8 @@ module.exports = {
                     _isWall(data.player.position.x, data.player.position.y-1) ||
                     (data.player.position.x == data.player.previous.x && data.player.position.y-1 == data.player.previous.y)
                 ) &&
-                (data.player.position.x+1 !== data.player.previous.x || data.player.position.y !== data.player.previous.y)
+                (data.player.position.x+1 !== data.player.previous.x || data.player.position.y !== data.player.previous.y) &&
+                _nextToInvader(data.player.position.x+1, data.player.position.y)
             ){
                 console.log("*****************IN RIGHT **************")
                 return "right"
@@ -43,7 +53,8 @@ module.exports = {
             //DOWN
             }else if(
                 !_isWall(data.player.position.x, data.player.position.y+1) &&
-                (data.player.position.x !== data.player.previous.x || data.player.position.y+1 !== data.player.previous.y)
+                (data.player.position.x !== data.player.previous.x || data.player.position.y+1 !== data.player.previous.y) &&
+                _nextToInvader(data.player.position.x, data.player.position.y+1)
             ){
                 console.log("*****************IN DOWN **************")
                 return "down"
@@ -51,7 +62,8 @@ module.exports = {
             //LEFT
             }else if(
                 !_isWall(data.player.position.x-1, data.player.position.y) &&
-                (data.player.position.x-1 !== data.player.previous.x || data.player.position.y !== data.player.previous.y)
+                (data.player.position.x-1 !== data.player.previous.x || data.player.position.y !== data.player.previous.y) && 
+                _nextToInvader(data.player.position.x-1, data.player.position.y)
             ){
                 console.log("*****************IN LEFT **************")
                 return "left"
