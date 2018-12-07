@@ -110,6 +110,7 @@ module.exports = {
             let playersFireTarget = _getFireTargets(data.players, data.player.position)
             let invadersFireTarget = _getFireTargets(data.invaders, data.player.position)
             directionString = _getBestFireScore(playersFireTarget, invadersFireTarget)
+            console.log(directionString)
             if(directionString.length){
                 return res.send({move: "fire-"+directionString}).end();
             }
