@@ -79,7 +79,7 @@ module.exports = {
         _isBehindWall = (target, dir1, dir2) =>{
             return data.board.walls.some(wall=>{
                 return  (
-                            (wall[dir1] < target[dir1] && wall[dir1] > data.player.position[dir1]) &&
+                            (wall[dir1] < target[dir1] && wall[dir1] > data.player.position[dir1]) ||
                             (wall[dir1] > target[dir1] && wall[dir1] < data.player.position[dir1])
                         ) && wall[dir2] === target[dir2] && wall[dir2] === data.player.position[dir2]
             })
@@ -92,11 +92,11 @@ module.exports = {
         _getFireTargets = (targets, pos) => {
             let objectResponse = {down: 0, up: 0, left: 0, right: 0}
             targets.forEach(target => {
-                if(target.x === pos.x && _isBehindWall(target, "y", "x")){    
+                if(target.x === pos.x && !_isBehindWall(target, "y", "x")){    
                     if(target.y > pos.y){
                         objectResponse.down += 1
                     }else objectResponse.up += 1
-                }else if(target.y === pos.y && _isBehindWall(target, "x", "y")){
+                }else if(target.y === pos.y && !_isBehindWall(target, "x", "y")){
                     if(target.x > pos.x){
                         objectResponse.right += 1
                     }else objectResponse.left += 1
@@ -142,6 +142,6 @@ module.exports = {
     },
 
     name: (req, res) => {
-        return res.send({email: "ismael.jimenez@ext.privalia.com", name: "ENP"}).end();
+        return res.send({email: "ismael.jimenez@ext.privalia.com", name: "Ismael Jiménez"}).end();
     }
 }
